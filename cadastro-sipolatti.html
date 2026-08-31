@@ -16,11 +16,12 @@
   /* As duas marcas lado a lado, separadas por um fio: le como parceria, e
      nao como uma logo so. Limitadas pela ALTURA para se equilibrarem, ja que
      cada lojista manda a arte na proporcao que quiser. */
-  .marcas{display:flex;align-items:center;justify-content:center;gap:18px}
-  /* Altura fixa, largura automatica: com as imagens recortadas, altura igual
-     e tinta igual. Limitar pela largura faria a marca mais larga encolher e
-     voltar a parecer menor. */
-  .marcas img{height:30px;width:auto;display:block}
+  .marcas{display:flex;align-items:center;justify-content:center;gap:14px}
+  /* Altura calculada, largura automatica: com as imagens recortadas, altura
+     igual e tinta igual. Limitar pela largura faria a marca mais larga
+     encolher e voltar a parecer menor — e no celular a linha inteira
+     transbordava do cartao para os dois lados. */
+  .marcas img{height:clamp(15px, calc((100vw - 114px) / 13.13), 30px);width:auto;display:block}
   .divisa{width:1px;align-self:stretch;min-height:32px;background:var(--line);flex:none}
   .loja-txt{color:#fff;font-weight:700;font-size:17px;line-height:1.2}
   h1{font-size:22px;margin:20px 0 0;color:#fff;text-align:center}
