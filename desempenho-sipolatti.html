@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Campanha Sipolatti — outubro de 2026</title>
+<style>
+  *{box-sizing:border-box}
+  :root{--vinho:#6A1520;--vinho-2:#8a2433;--ouro:#E5B769;--tinta:#1d1d1f;
+        --fraco:#6b6b70;--linha:#e6e3df;--fundo:#faf9f7}
+  body{margin:0;background:var(--fundo);color:var(--tinta);
+       font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+  .caixa{max-width:760px;margin:0 auto;padding:20px 16px 48px}
+  header{margin-bottom:18px}
+  h1{margin:0;font-size:19px;letter-spacing:-.01em}
+  .periodo{margin:2px 0 0;color:var(--fraco);font-size:13px}
+  .resumo{display:flex;gap:10px;margin:16px 0;padding:14px 16px;border-radius:12px;
+          background:var(--vinho);color:#fff;align-items:baseline;flex-wrap:wrap}
+  .resumo b{font-size:22px;color:var(--ouro)}
+  .resumo span{font-size:13px;opacity:.9}
+  .nota{margin:0 0 16px;padding:11px 14px;border-left:3px solid var(--ouro);
+        background:#fff;border-radius:0 10px 10px 0;font-size:13px;color:var(--fraco)}
+  .ferramentas{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+  input[type=search]{flex:1;min-width:180px;padding:11px 13px;border:1px solid var(--linha);
+    border-radius:10px;font-size:14px;background:#fff;color:var(--tinta)}
+  input[type=search]:focus{outline:none;border-color:var(--vinho)}
+  .chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+  .chip{padding:6px 11px;border:1px solid var(--linha);background:#fff;border-radius:999px;
+        font-size:12px;color:var(--fraco);cursor:pointer}
+  .chip.ativo{border-color:var(--vinho);background:var(--vinho);color:#fff}
+  .pessoa{background:#fff;border:1px solid var(--linha);border-radius:12px;margin-bottom:8px}
+  .pessoa summary{display:flex;align-items:center;gap:10px;padding:12px 14px;cursor:pointer;
+    list-style:none}
+  .pessoa summary::-webkit-details-marker{display:none}
+  .pos{width:26px;color:var(--fraco);font-size:13px;font-variant-numeric:tabular-nums}
+  .nome{flex:1;min-width:0;font-weight:600;font-size:14px;overflow:hidden;
+        text-overflow:ellipsis;white-space:nowrap}
+  .selo{margin-left:6px;padding:1px 7px;border-radius:999px;background:#f3ece0;
+        color:var(--vinho-2);font-size:10px;font-weight:700;vertical-align:middle}
+  .loja{color:var(--fraco);font-size:12px;white-space:nowrap}
+  .moedas{min-width:52px;text-align:right;font-weight:700;color:var(--vinho)}
+  .moedas::after{content:" moedas";font-size:10px;font-weight:500;color:var(--fraco)}
+  .detalhe{padding:0 14px 12px}
+  .linha-detalhe{display:flex;gap:10px;padding:7px 0;border-top:1px dashed var(--linha);
+    font-size:13px;color:var(--fraco)}
+  .linha-detalhe span:first-child{flex:1}
+  .linha-detalhe .moeda{color:var(--vinho);font-weight:600;min-width:42px;text-align:right}
+  .linha-detalhe.vazio{color:var(--fraco);font-style:italic}
+  .familias{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+  .fam{padding:4px 9px;border-radius:999px;background:var(--fundo);border:1px solid var(--linha);
+       font-size:11.5px;color:var(--fraco)}
+  .fam b{color:var(--tinta)}
+  .vazia{padding:28px 4px;text-align:center;color:var(--fraco);font-size:14px}
+  footer{margin-top:22px;color:var(--fraco);font-size:11.5px;text-align:center}
+</style></head>
+<body>
+  <div class="caixa">
+    <header>
+      <h1>Campanha Sipolatti</h1>
+      <p class="periodo">outubro de 2026</p>
+    </header>
+
+    <div class="resumo">
+      <b>0</b>
+      <span>moedas previstas para a equipe neste período</span>
+    </div>
+
+    <p class="nota">
+      Estes números são o seu ritmo do mês, atualizados a cada envio de vendas do
+      lojista. As moedas entram na sua conta da Peoplefy depois do fechamento do
+      período — até lá, elas aparecem aqui para você acompanhar.
+    </p>
+
+    <div class="ferramentas">
+      <input type="search" id="busca" placeholder="Procure o seu nome" autocomplete="off">
+    </div>
+    <div class="chips" id="chips">
+      <button class="chip ativo" data-familia="">Todas as famílias</button>
+      
+    </div>
+
+    <div id="lista"><p class="vazia">Nenhuma venda no período ainda.</p></div>
+    <p class="vazia" id="nada" style="display:none">Ninguém encontrado com esse nome.</p>
+
+    <footer>Orthocrin · Peoplefy · atualizado em 21/09/2026 16:09</footer>
+  </div>
+<script>
+const SEM_ACENTO = s => s.normalize('NFKD').replace(/[\u0300-\u036f]/g,'').toUpperCase();
+const lista = document.getElementById('lista');
+const busca = document.getElementById('busca');
+const nada  = document.getElementById('nada');
+let familia = '';
+
+function filtrar(){
+  const termo = SEM_ACENTO(busca.value.trim());
+  let visiveis = 0;
+  for (const p of lista.querySelectorAll('.pessoa')) {
+    const nome = p.dataset.busca || '';
+    const fams = (p.dataset.familias || '').split('|');
+    const passa = (!termo || nome.includes(termo)) && (!familia || fams.includes(familia));
+    p.style.display = passa ? '' : 'none';
+    if (passa) visiveis++;
+  }
+  nada.style.display = visiveis ? 'none' : '';
+}
+
+busca.addEventListener('input', filtrar);
+for (const chip of document.querySelectorAll('.chip')) {
+  chip.addEventListener('click', () => {
+    document.querySelectorAll('.chip').forEach(c => c.classList.remove('ativo'));
+    chip.classList.add('ativo');
+    familia = chip.dataset.familia || '';
+    filtrar();
+  });
+}
+</script>
+</body></html>
