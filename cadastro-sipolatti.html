@@ -2,7 +2,7 @@
 <html lang="pt-BR"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>Cadastro de Vendedores — Sipolatti</title>
+<title>Cadastro de gerentes e vendedores — Sipolatti</title>
 <style>
   :root{--wine-900:#4a1020;--wine-800:#5e1729;--wine-950:#3a0c1a;
         --gold:#e5b769;--gold-2:#f8e0b8;--ink:#3a0c1a;--line:rgba(248,224,184,.16)}
@@ -70,6 +70,13 @@
   .janela h2{margin:0 0 8px;font-size:17px;color:#fff}
   .janela p{margin:0;font-size:14px;line-height:1.55;color:var(--gold-2)}
   .janela button{margin-top:20px;text-transform:none;font-size:14px}
+  .papel{display:flex;gap:10px;margin-bottom:14px}
+  .papel .opcao{flex:1;display:flex;align-items:center;gap:8px;margin:0;padding:11px 12px;
+    border:1px solid var(--line);border-radius:11px;cursor:pointer;text-transform:none;
+    letter-spacing:0;font-size:13.5px;color:var(--gold-2)}
+  .papel .opcao:has(input:checked){border-color:var(--gold);background:rgba(229,183,105,.10);
+    color:#fff}
+  .papel input{width:auto;margin:0;accent-color:var(--gold)}
   .rodape{margin-top:24px;padding-top:16px;border-top:1px solid var(--line);text-align:center}
   .rodape p{font-size:11.5px;color:var(--gold);opacity:.75;margin:0;line-height:1.6}
 </style></head>
@@ -82,10 +89,19 @@
       <span class="divisa"></span>
       <img src="data:image/png;base64,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" alt="Peoplefy">
     </div>
-    <h1>Cadastro de vendedores</h1>
+    <h1>Cadastro de gerentes e vendedores</h1>
     <p class="aviso">A equipe irá conferir os dados e criar o seu acesso. Você receberá um
       email quando seu acesso for liberado.</p>
     <form id="f" autocomplete="on">
+      <label>Você é</label>
+      <div class="papel">
+        <label class="opcao" for="papel_vendedor">
+          <input type="radio" id="papel_vendedor" name="papel" value="vendedor" checked>
+          <span>Vendedor(a)</span></label>
+        <label class="opcao" for="papel_gerente">
+          <input type="radio" id="papel_gerente" name="papel" value="gerente">
+          <span>Gerente</span></label>
+      </div>
       <label for="nome">Nome completo</label>
       <input id="nome" placeholder="Nome e sobrenome"><div class="erro" id="e-nome"></div>
       <label for="cpf">CPF</label>
@@ -189,7 +205,11 @@ $('f').addEventListener('submit', async e=>{
   // O prefixo "MM:" separa dos codigos de loja da franquia, que sao numericos.
   const corpo={nome:$('nome').value.trim(), cpf:soDig($('cpf').value),
     telefone:soDig($('telefone').value), email:$('email').value.trim().toLowerCase(),
-    codigo_loja:'MM:'+D.lojista_id, loja_label:D.lojista_nome, hp:''};
+    // O papel entra no codigo_loja porque o worker so repassa os campos que
+    // ja conhece: um campo 'papel' seria descartado e todo gerente chegaria
+    // como vendedor. Mesmo motivo do lojista viajar aqui.
+    codigo_loja:'MM:'+D.lojista_id+($('papel_gerente').checked ? ':gerente' : ''),
+    loja_label:D.lojista_nome, hp:''};
   $('btn').disabled=true;
   try{
     const r=await fetch(D.endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(corpo)});
