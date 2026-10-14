@@ -65,17 +65,59 @@
     <input type="search" id="busca" placeholder="Procure o seu nome" autocomplete="off">
     <div class="chips" id="chips">
       <button class="chip ativo" data-familia="">Tudo</button>
-      
+      <button class="chip" data-familia="BOX">BOX</button><button class="chip" data-familia="DIAMANTE UP">DIAMANTE UP</button><button class="chip" data-familia="EMINENT GEL">EMINENT GEL</button><button class="chip" data-familia="ROYAL SAUDE PLUS">ROYAL SAUDE PLUS</button><button class="chip" data-familia="TRAV. SOFT">TRAV. SOFT</button>
     </div>
 
     <div class="titulo-lista"><span>Ranking do período</span><span>moedas previstas</span></div>
-    <div id="lista"><p class="vazia-lista">As vendas do período ainda não chegaram.</p></div>
+    <div id="lista">
+      <div class="pessoa" data-busca="NATHALYA VICTORIA FERREIRA COSTA"
+           data-familias="EMINENT GEL|BOX">
+        <span class="pos m1">1</span>
+        <span class="nome">Nathalya Victoria Ferreira Costa</span>
+        <span class="moedas"><i class="moeda"></i>45</span>
+      </div>
+      <div class="pessoa" data-busca="JOCIMARA PIANA"
+           data-familias="EMINENT GEL|BOX">
+        <span class="pos m2">2</span>
+        <span class="nome">Jocimara Piana</span>
+        <span class="moedas"><i class="moeda"></i>15</span>
+      </div>
+      <div class="pessoa" data-busca="LUIZ CARLOS SANTOS CRUZ"
+           data-familias="EMINENT GEL|BOX">
+        <span class="pos m3">3</span>
+        <span class="nome">Luiz Carlos Santos Cruz</span>
+        <span class="moedas"><i class="moeda"></i>15</span>
+      </div>
+      <div class="pessoa" data-busca="MARCELO MENEZES LEITE"
+           data-familias="ROYAL SAUDE PLUS">
+        <span class="pos">4</span>
+        <span class="nome">Marcelo menezes leite</span>
+        <span class="moedas"><i class="moeda"></i>15</span>
+      </div>
+      <div class="pessoa" data-busca="CRISTAL SANTOS DA FONSECA"
+           data-familias="DIAMANTE UP">
+        <span class="pos">5</span>
+        <span class="nome">Cristal Santos da Fonseca</span>
+        <span class="moedas"><i class="moeda"></i>10</span>
+      </div>
+      <div class="pessoa" data-busca="CARLOS VINICIUS DE MELO BARBOSA"
+           data-familias="">
+        <span class="pos">6</span>
+        <span class="nome">CARLOS VINICIUS DE MELO BARBOSA</span>
+        <span class="moedas"><i class="moeda"></i>9</span>
+      </div>
+      <div class="pessoa" data-busca="DALRIETE BRUNO MIRANDA DE MORAES"
+           data-familias="TRAV. SOFT">
+        <span class="pos">7</span>
+        <span class="nome">Dalriete Bruno Miranda de Moraes</span>
+        <span class="moedas"><i class="moeda"></i>0</span>
+      </div></div>
     <p class="vazia-lista" id="nada" style="display:none">Ninguém encontrado com esse nome.</p>
   </div>
 
   <footer>
     As moedas entram na sua conta da Peoplefy depois do fechamento do período.
-    <br>Atualizado em 22/09/2026 12:36
+    <br>Atualizado em 14/10/2026 15:59
   </footer>
 <script>
 // A barra dobrada e para o f-string: com uma so, o Python resolveria a
